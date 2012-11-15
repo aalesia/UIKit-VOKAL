@@ -25,6 +25,7 @@
 		EA7EEE081655449700E44581 /* txt_field_bg_focused@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA7EEE021655449700E44581 /* txt_field_bg_focused@2x.png */; };
 		EA7EEE091655449700E44581 /* txt_field_bg_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = EA7EEE031655449700E44581 /* txt_field_bg_normal.png */; };
 		EA7EEE0A1655449700E44581 /* txt_field_bg_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA7EEE041655449700E44581 /* txt_field_bg_normal@2x.png */; };
+		EA7EEE0D1655470800E44581 /* VITextView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA7EEE0C1655470800E44581 /* VITextView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,8 @@
 		EA7EEE021655449700E44581 /* txt_field_bg_focused@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "txt_field_bg_focused@2x.png"; sourceTree = "<group>"; };
 		EA7EEE031655449700E44581 /* txt_field_bg_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = txt_field_bg_normal.png; sourceTree = "<group>"; };
 		EA7EEE041655449700E44581 /* txt_field_bg_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "txt_field_bg_normal@2x.png"; sourceTree = "<group>"; };
+		EA7EEE0B1655470800E44581 /* VITextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VITextView.h; path = "UIKit+VOKAL/VITextView.h"; sourceTree = "<group>"; };
+		EA7EEE0C1655470800E44581 /* VITextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VITextView.m; path = "UIKit+VOKAL/VITextView.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +132,8 @@
 			children = (
 				EA7EEDFB16553F6200E44581 /* VITextField.h */,
 				EA7EEDFC16553F6200E44581 /* VITextField.m */,
+				EA7EEE0B1655470800E44581 /* VITextView.h */,
+				EA7EEE0C1655470800E44581 /* VITextView.m */,
 			);
 			name = "UIKit+VOKAL";
 			sourceTree = "<group>";
@@ -223,6 +228,7 @@
 				EA7EEDE316553F1400E44581 /* VIAppDelegate.m in Sources */,
 				EA7EEDEC16553F1400E44581 /* VIViewController.m in Sources */,
 				EA7EEDFD16553F6200E44581 /* VITextField.m in Sources */,
+				EA7EEE0D1655470800E44581 /* VITextView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
