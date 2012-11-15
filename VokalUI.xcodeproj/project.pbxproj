@@ -18,14 +18,14 @@
 		EA7EEDE916553F1400E44581 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA7EEDE816553F1400E44581 /* Default-568h@2x.png */; };
 		EA7EEDEC16553F1400E44581 /* VIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA7EEDEB16553F1400E44581 /* VIViewController.m */; };
 		EA7EEDEF16553F1400E44581 /* VIViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA7EEDED16553F1400E44581 /* VIViewController.xib */; };
-		EA7EEDFD16553F6200E44581 /* VITextField.m in Sources */ = {isa = PBXBuildFile; fileRef = EA7EEDFC16553F6200E44581 /* VITextField.m */; };
 		EA7EEE051655449700E44581 /* txt_field_bg_disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = EA7EEDFF1655449700E44581 /* txt_field_bg_disabled.png */; };
 		EA7EEE061655449700E44581 /* txt_field_bg_disabled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA7EEE001655449700E44581 /* txt_field_bg_disabled@2x.png */; };
 		EA7EEE071655449700E44581 /* txt_field_bg_focused.png in Resources */ = {isa = PBXBuildFile; fileRef = EA7EEE011655449700E44581 /* txt_field_bg_focused.png */; };
 		EA7EEE081655449700E44581 /* txt_field_bg_focused@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA7EEE021655449700E44581 /* txt_field_bg_focused@2x.png */; };
 		EA7EEE091655449700E44581 /* txt_field_bg_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = EA7EEE031655449700E44581 /* txt_field_bg_normal.png */; };
 		EA7EEE0A1655449700E44581 /* txt_field_bg_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA7EEE041655449700E44581 /* txt_field_bg_normal@2x.png */; };
-		EA7EEE0D1655470800E44581 /* VITextView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA7EEE0C1655470800E44581 /* VITextView.m */; };
+		EA7EEE1416554A1600E44581 /* VITextField.m in Sources */ = {isa = PBXBuildFile; fileRef = EA7EEE1016554A1600E44581 /* VITextField.m */; };
+		EA7EEE1516554A1600E44581 /* VITextView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA7EEE1316554A1600E44581 /* VITextView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,16 +45,16 @@
 		EA7EEDEA16553F1400E44581 /* VIViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VIViewController.h; sourceTree = "<group>"; };
 		EA7EEDEB16553F1400E44581 /* VIViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VIViewController.m; sourceTree = "<group>"; };
 		EA7EEDEE16553F1400E44581 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/VIViewController.xib; sourceTree = "<group>"; };
-		EA7EEDFB16553F6200E44581 /* VITextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VITextField.h; path = "UIKit+VOKAL/VITextField.h"; sourceTree = "<group>"; };
-		EA7EEDFC16553F6200E44581 /* VITextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VITextField.m; path = "UIKit+VOKAL/VITextField.m"; sourceTree = "<group>"; };
 		EA7EEDFF1655449700E44581 /* txt_field_bg_disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = txt_field_bg_disabled.png; sourceTree = "<group>"; };
 		EA7EEE001655449700E44581 /* txt_field_bg_disabled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "txt_field_bg_disabled@2x.png"; sourceTree = "<group>"; };
 		EA7EEE011655449700E44581 /* txt_field_bg_focused.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = txt_field_bg_focused.png; sourceTree = "<group>"; };
 		EA7EEE021655449700E44581 /* txt_field_bg_focused@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "txt_field_bg_focused@2x.png"; sourceTree = "<group>"; };
 		EA7EEE031655449700E44581 /* txt_field_bg_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = txt_field_bg_normal.png; sourceTree = "<group>"; };
 		EA7EEE041655449700E44581 /* txt_field_bg_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "txt_field_bg_normal@2x.png"; sourceTree = "<group>"; };
-		EA7EEE0B1655470800E44581 /* VITextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VITextView.h; path = "UIKit+VOKAL/VITextView.h"; sourceTree = "<group>"; };
-		EA7EEE0C1655470800E44581 /* VITextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VITextView.m; path = "UIKit+VOKAL/VITextView.m"; sourceTree = "<group>"; };
+		EA7EEE0F16554A1600E44581 /* VITextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VITextField.h; sourceTree = "<group>"; };
+		EA7EEE1016554A1600E44581 /* VITextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VITextField.m; sourceTree = "<group>"; };
+		EA7EEE1216554A1600E44581 /* VITextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VITextView.h; sourceTree = "<group>"; };
+		EA7EEE1316554A1600E44581 /* VITextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VITextView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,10 +130,8 @@
 		EA7EEDF916553F3400E44581 /* UIKit+VOKAL */ = {
 			isa = PBXGroup;
 			children = (
-				EA7EEDFB16553F6200E44581 /* VITextField.h */,
-				EA7EEDFC16553F6200E44581 /* VITextField.m */,
-				EA7EEE0B1655470800E44581 /* VITextView.h */,
-				EA7EEE0C1655470800E44581 /* VITextView.m */,
+				EA7EEE0E16554A1600E44581 /* VITextField */,
+				EA7EEE1116554A1600E44581 /* VITextView */,
 			);
 			name = "UIKit+VOKAL";
 			sourceTree = "<group>";
@@ -149,6 +147,26 @@
 				EA7EEE041655449700E44581 /* txt_field_bg_normal@2x.png */,
 			);
 			path = Images;
+			sourceTree = "<group>";
+		};
+		EA7EEE0E16554A1600E44581 /* VITextField */ = {
+			isa = PBXGroup;
+			children = (
+				EA7EEE0F16554A1600E44581 /* VITextField.h */,
+				EA7EEE1016554A1600E44581 /* VITextField.m */,
+			);
+			name = VITextField;
+			path = "UIKit+VOKAL/VITextField";
+			sourceTree = "<group>";
+		};
+		EA7EEE1116554A1600E44581 /* VITextView */ = {
+			isa = PBXGroup;
+			children = (
+				EA7EEE1216554A1600E44581 /* VITextView.h */,
+				EA7EEE1316554A1600E44581 /* VITextView.m */,
+			);
+			name = VITextView;
+			path = "UIKit+VOKAL/VITextView";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -227,8 +245,8 @@
 				EA7EEDDF16553F1400E44581 /* main.m in Sources */,
 				EA7EEDE316553F1400E44581 /* VIAppDelegate.m in Sources */,
 				EA7EEDEC16553F1400E44581 /* VIViewController.m in Sources */,
-				EA7EEDFD16553F6200E44581 /* VITextField.m in Sources */,
-				EA7EEE0D1655470800E44581 /* VITextView.m in Sources */,
+				EA7EEE1416554A1600E44581 /* VITextField.m in Sources */,
+				EA7EEE1516554A1600E44581 /* VITextView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
