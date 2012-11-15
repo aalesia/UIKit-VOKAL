@@ -9,10 +9,12 @@
 #import "VIViewController.h"
 #import "VITextField.h"
 #import "VITextView.h"
+#import "VITableView.h"
 
 @interface VIViewController ()
 @property (weak, nonatomic) IBOutlet VITextField *textField;
 @property (weak, nonatomic) IBOutlet VITextView *textView;
+@property (weak, nonatomic) IBOutlet VITableView *tableView;
 
 @end
 
@@ -36,6 +38,12 @@
     _textView.background = [[UIImage imageNamed:@"txt_field_bg_normal.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(12, 4, 21, 4)];
     _textView.activeBackground = [[UIImage imageNamed:@"txt_field_bg_focused.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(12, 4, 21, 4)];
     _textView.placeholder = @"Placeholder";
+    
+    [_tableView addPullToRefreshWithTask:^{
+        [_tableView performSelector:@selector(endRefresh)
+                         withObject:nil
+                         afterDelay:2.0];
+    }];
 }
 
 - (void)didReceiveMemoryWarning
