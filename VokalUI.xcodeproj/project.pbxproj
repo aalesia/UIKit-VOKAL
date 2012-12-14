@@ -27,8 +27,11 @@
 		EA7EEE1416554A1600E44581 /* VITextField.m in Sources */ = {isa = PBXBuildFile; fileRef = EA7EEE1016554A1600E44581 /* VITextField.m */; };
 		EA7EEE1516554A1600E44581 /* VITextView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA7EEE1316554A1600E44581 /* VITextView.m */; };
 		EA7EEE1916554B0800E44581 /* VITableView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA7EEE1816554B0800E44581 /* VITableView.m */; };
-		EA7EEE1E16554B1F00E44581 /* SVPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = EA7EEE1D16554B1F00E44581 /* SVPullToRefresh.m */; };
 		EA7EEE201655507700E44581 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA7EEE1F1655507700E44581 /* QuartzCore.framework */; };
+		EAD9CF5E167B9F9D0022AA3D /* VIImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD9CF5D167B9F9D0022AA3D /* VIImageView.m */; };
+		EAD9CF66167BC5910022AA3D /* VIImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD9CF65167BC5910022AA3D /* VIImageCell.m */; };
+		EAD9CF68167BC5B00022AA3D /* VIImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAD9CF67167BC5B00022AA3D /* VIImageCell.xib */; };
+		EAD9CF6F167BC9C80022AA3D /* SVPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD9CF6E167BC9C80022AA3D /* SVPullToRefresh.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,9 +63,14 @@
 		EA7EEE1316554A1600E44581 /* VITextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VITextView.m; sourceTree = "<group>"; };
 		EA7EEE1716554B0800E44581 /* VITableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VITableView.h; sourceTree = "<group>"; };
 		EA7EEE1816554B0800E44581 /* VITableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VITableView.m; sourceTree = "<group>"; };
-		EA7EEE1C16554B1F00E44581 /* SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVPullToRefresh.h; sourceTree = "<group>"; };
-		EA7EEE1D16554B1F00E44581 /* SVPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVPullToRefresh.m; sourceTree = "<group>"; };
 		EA7EEE1F1655507700E44581 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		EAD9CF5C167B9F9D0022AA3D /* VIImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VIImageView.h; path = "UIKit+VOKAL/VIImageView/VIImageView.h"; sourceTree = "<group>"; };
+		EAD9CF5D167B9F9D0022AA3D /* VIImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VIImageView.m; path = "UIKit+VOKAL/VIImageView/VIImageView.m"; sourceTree = "<group>"; };
+		EAD9CF64167BC5910022AA3D /* VIImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VIImageCell.h; sourceTree = "<group>"; };
+		EAD9CF65167BC5910022AA3D /* VIImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VIImageCell.m; sourceTree = "<group>"; };
+		EAD9CF67167BC5B00022AA3D /* VIImageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VIImageCell.xib; sourceTree = "<group>"; };
+		EAD9CF6D167BC9C80022AA3D /* SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVPullToRefresh.h; sourceTree = "<group>"; };
+		EAD9CF6E167BC9C80022AA3D /* SVPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVPullToRefresh.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +127,9 @@
 				EA7EEDEB16553F1400E44581 /* VIViewController.m */,
 				EA7EEDED16553F1400E44581 /* VIViewController.xib */,
 				EA7EEDD916553F1400E44581 /* Supporting Files */,
+				EAD9CF64167BC5910022AA3D /* VIImageCell.h */,
+				EAD9CF65167BC5910022AA3D /* VIImageCell.m */,
+				EAD9CF67167BC5B00022AA3D /* VIImageCell.xib */,
 			);
 			path = VokalUI;
 			sourceTree = "<group>";
@@ -141,6 +152,7 @@
 		EA7EEDF916553F3400E44581 /* UIKit+VOKAL */ = {
 			isa = PBXGroup;
 			children = (
+				EAD9CF5A167B9F6B0022AA3D /* VIImageView */,
 				EA7EEE1616554ADD00E44581 /* VITableView */,
 				EA7EEE0E16554A1600E44581 /* VITextField */,
 				EA7EEE1116554A1600E44581 /* VITextView */,
@@ -202,11 +214,20 @@
 		EA7EEE1B16554B1F00E44581 /* SVPullToRefresh */ = {
 			isa = PBXGroup;
 			children = (
-				EA7EEE1C16554B1F00E44581 /* SVPullToRefresh.h */,
-				EA7EEE1D16554B1F00E44581 /* SVPullToRefresh.m */,
+				EAD9CF6D167BC9C80022AA3D /* SVPullToRefresh.h */,
+				EAD9CF6E167BC9C80022AA3D /* SVPullToRefresh.m */,
 			);
 			name = SVPullToRefresh;
 			path = Lib/SVPullToRefresh/SVPullToRefresh;
+			sourceTree = "<group>";
+		};
+		EAD9CF5A167B9F6B0022AA3D /* VIImageView */ = {
+			isa = PBXGroup;
+			children = (
+				EAD9CF5C167B9F9D0022AA3D /* VIImageView.h */,
+				EAD9CF5D167B9F9D0022AA3D /* VIImageView.m */,
+			);
+			name = VIImageView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -272,6 +293,7 @@
 				EA7EEE081655449700E44581 /* txt_field_bg_focused@2x.png in Resources */,
 				EA7EEE091655449700E44581 /* txt_field_bg_normal.png in Resources */,
 				EA7EEE0A1655449700E44581 /* txt_field_bg_normal@2x.png in Resources */,
+				EAD9CF68167BC5B00022AA3D /* VIImageCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,7 +310,9 @@
 				EA7EEE1416554A1600E44581 /* VITextField.m in Sources */,
 				EA7EEE1516554A1600E44581 /* VITextView.m in Sources */,
 				EA7EEE1916554B0800E44581 /* VITableView.m in Sources */,
-				EA7EEE1E16554B1F00E44581 /* SVPullToRefresh.m in Sources */,
+				EAD9CF5E167B9F9D0022AA3D /* VIImageView.m in Sources */,
+				EAD9CF66167BC5910022AA3D /* VIImageCell.m in Sources */,
+				EAD9CF6F167BC9C80022AA3D /* SVPullToRefresh.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
