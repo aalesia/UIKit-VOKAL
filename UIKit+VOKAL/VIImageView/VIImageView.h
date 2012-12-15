@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
-@interface VIImageView : UIImageView
+@interface VIImageView : UIView
+
+@property (nonatomic, strong) UIImage *image;
 
 - (void)setImageUrl:(NSString *)imageUrl defaultImage:(UIImage *)defaultImage animated:(BOOL)animated;
 - (void)cancelOperation;

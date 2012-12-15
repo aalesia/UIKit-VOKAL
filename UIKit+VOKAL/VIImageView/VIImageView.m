@@ -10,6 +10,7 @@
 
 @interface VIImageView ()
 
+@property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UIImage *defaultImage;
 @property (nonatomic, strong) VIImageOperation *operation;
 
@@ -21,9 +22,37 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        // Initialization code
+        self.imageView = [[UIImageView alloc] initWithFrame:frame];
+        [self addSubview:self.imageView];
     }
     return self;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        self.imageView = [[UIImageView alloc] initWithCoder:aDecoder];
+        [self addSubview:self.imageView];
+    }
+    return self;
+}
+
+- (void)layoutSubviews
+{
+    if (!CGRectEqualToRect(self.imageView.frame, self.frame)) {
+        self.imageView.frame = self.frame;
+    }
+    
+    self.imageView.autoresizingMask = self.autoresizingMask;
+    self.imageView.contentMode = self.contentMode;
+    self.imageView.clipsToBounds = self.clipsToBounds;
+}
+
+- (void)setImage:(UIImage *)image
+{
+    _image = image;
+    self.imageView.image = image;
 }
 
 - (void)setImageUrl:(NSString *)imageUrl defaultImage:(UIImage *)defaultImage animated:(BOOL)animated
