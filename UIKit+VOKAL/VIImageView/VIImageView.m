@@ -32,35 +32,35 @@
     
     if (defaultImage != nil) {
         self.defaultImage = defaultImage;
-        self.image = self.defaultImage;
     }
     
     self.operation = [[VIImageOperation alloc] init];
     
-    [_operation fetchImageFromURL:imageUrl
-                       completion:^(UIImage *image, BOOL isFromCache) {
-                           if (image != nil) {
-                               self.image = image;
-                               
-                               if (animated && !isFromCache) {
-                                   CATransition *animation = [CATransition animation];
-                                   [animation setDuration:0.2];
-                                   [animation setType:kCATransitionFade];
-                                   [animation setSubtype:kCATransitionFade];
-                                   
-                                   [[self layer] addAnimation:animation forKey:@"DisplayView"];
-                                   
-                                   self.image = image;
-                                   
-                                   self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width+1, self.frame.size.height+1);
-                                   self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width-1, self.frame.size.height-1);
-                               }
-                           } else if (self.defaultImage != nil) {
-                               self.image = defaultImage;
-                           } else {
-                               self.image = nil;
-                           }
-                       }];
+    [_operation fetchImageForImageView:self
+                               fromURL:imageUrl
+                            completion:^(UIImage *image, BOOL isFromCache) {
+                                if (image != nil) {
+                                    self.image = image;
+                                    
+                                    if (animated && !isFromCache) {
+                                        CATransition *animation = [CATransition animation];
+                                        [animation setDuration:0.2];
+                                        [animation setType:kCATransitionFade];
+                                        [animation setSubtype:kCATransitionFade];
+                                        
+                                        [[self layer] addAnimation:animation forKey:@"DisplayView"];
+                                        
+                                        self.image = image;
+                                        
+                                        self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width+1, self.frame.size.height+1);
+                                        self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width-1, self.frame.size.height-1);
+                                    }
+                                } else if (self.defaultImage != nil) {
+                                    self.image = defaultImage;
+                                } else {
+                                    self.image = nil;
+                                }
+                            }];
 }
 
 - (void)cancelOperation
@@ -78,6 +78,8 @@
 @end
 
 @implementation VIImageOperation
+
+#define MAX_CACHE   30
 
 static NSOperationQueue *_queue = nil;
 static NSMutableArray *_localCache = nil;
@@ -103,22 +105,41 @@ static NSMutableArray *_localCache = nil;
     return _localCache;
 }
 
-- (void)fetchImageFromURL:(NSString *)uniquePath completion:(void (^)(UIImage *image, BOOL isFromCache))completion
+- (void)fetchImageForImageView:(VIImageView *)imageView fromURL:(NSString *)uniquePath completion:(void (^)(UIImage *image, BOOL isFromCache))completion
 {
+    UIImage *localImage = [self imageFromCache:uniquePath];
+    
+    if (localImage != nil) {
+        completion(localImage, YES);
+        return;
+    }
+    
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:uniquePath]
                                                   cachePolicy:NSURLCacheStorageAllowed
                                               timeoutInterval:5.0];
     
+    if (imageView.defaultImage != nil) {
+        imageView.image = imageView.defaultImage;
+    } else {
+        imageView.image = nil;
+    }
+    
     if ([[NSURLCache sharedURLCache] cachedResponseForRequest:request]) {
-        NSCachedURLResponse *response = [[NSURLCache sharedURLCache] cachedResponseForRequest:request];
-        NSData *data = response.data;
-        UIImage *image = [self imageWithData:data];
+        self.operation = [NSBlockOperation blockOperationWithBlock:^{
+            NSCachedURLResponse *response = [[NSURLCache sharedURLCache] cachedResponseForRequest:request];
+            NSData *data = response.data;
+            UIImage *image = [self imageWithData:data];
+            
+            if (![self.operation isCancelled]) {
+                [self addToCache:uniquePath image:image];
+                
+                completion(image, NO);
+            } else {
+                NSLog(@"cancelled");
+            }
+        }];
         
-        if (![self.operation isCancelled]) {
-            completion(image, YES);
-        } else {
-            NSLog(@"cancelled");
-        }
+        [[VIImageOperation getQueue] addOperation:self.operation];
     } else {
         self.operation = [NSBlockOperation blockOperationWithBlock:^{
             NSError *error = nil;
@@ -129,7 +150,9 @@ static NSMutableArray *_localCache = nil;
             UIImage *image = [self imageWithData:data];
             
             if (![self.operation isCancelled]) {
-                completion(image, NO);
+                [self addToCache:uniquePath image:image];
+                
+                completion(image, YES);
             } else {
                 NSLog(@"cancelled");
             }
@@ -150,6 +173,31 @@ static NSMutableArray *_localCache = nil;
 - (void)cancel
 {
     [self.operation cancel];
+}
+
+#pragma mark - Local Cache
+
+- (UIImage *)imageFromCache:(NSString *)imageUrl
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(image_url == %@)", imageUrl];
+    NSArray *matchingDicts = [[[VIImageOperation getLocalCache] copy] filteredArrayUsingPredicate:predicate];
+    
+    if ([matchingDicts count] > 0) {
+        return [[matchingDicts lastObject] valueForKey:@"image"];
+    }
+    
+    return nil;
+}
+
+- (void)addToCache:(NSString *)imageUrl image:(UIImage *)image
+{
+    NSDictionary *dictionary = @{@"image" : image, @"image_url" : imageUrl};
+    
+    [[VIImageOperation getLocalCache] addObject:dictionary];
+    
+    if ([[VIImageOperation getLocalCache] count] > MAX_CACHE) {
+        [[VIImageOperation getLocalCache] removeObjectAtIndex:0];
+    }
 }
 
 @end

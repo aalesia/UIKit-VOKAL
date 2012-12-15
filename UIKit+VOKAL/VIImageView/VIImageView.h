@@ -18,7 +18,7 @@
 
 @interface VIImageOperation : NSObject
 
-- (void)fetchImageFromURL:(NSString *)uniquePath completion:(void (^)(UIImage *image, BOOL isFromCache))completion;
+- (void)fetchImageForImageView:(VIImageView *)imageView fromURL:(NSString *)uniquePath completion:(void (^)(UIImage *image, BOOL isFromCache))completion;
 - (void)cancel;
 
 @end
