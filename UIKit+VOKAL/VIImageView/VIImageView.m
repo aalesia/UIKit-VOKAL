@@ -80,6 +80,7 @@
 @implementation VIImageOperation
 
 static NSOperationQueue *_queue = nil;
+static NSMutableArray *_localCache = nil;
 
 + (NSOperationQueue *)getQueue
 {
@@ -92,25 +93,34 @@ static NSOperationQueue *_queue = nil;
     return _queue;
 }
 
++ (NSMutableArray *)getLocalCache
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _localCache = [[NSMutableArray alloc] init];
+    });
+    
+    return _localCache;
+}
+
 - (void)fetchImageFromURL:(NSString *)uniquePath completion:(void (^)(UIImage *image, BOOL isFromCache))completion
 {
+    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:uniquePath]
+                                                  cachePolicy:NSURLCacheStorageAllowed
+                                              timeoutInterval:5.0];
     
-    self.operation = [NSBlockOperation blockOperationWithBlock:^{
-        NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:uniquePath]
-                                                      cachePolicy:NSURLCacheStorageAllowed
-                                                  timeoutInterval:5.0];
+    if ([[NSURLCache sharedURLCache] cachedResponseForRequest:request]) {
+        NSCachedURLResponse *response = [[NSURLCache sharedURLCache] cachedResponseForRequest:request];
+        NSData *data = response.data;
+        UIImage *image = [self imageWithData:data];
         
-        if ([[NSURLCache sharedURLCache] cachedResponseForRequest:request]) {
-            NSCachedURLResponse *response = [[NSURLCache sharedURLCache] cachedResponseForRequest:request];
-            NSData *data = response.data;
-            UIImage *image = [self imageWithData:data];
-            
-            if (![self.operation isCancelled]) {
-                completion(image, YES);
-            } else {
-                NSLog(@"cancelled");
-            }
+        if (![self.operation isCancelled]) {
+            completion(image, YES);
         } else {
+            NSLog(@"cancelled");
+        }
+    } else {
+        self.operation = [NSBlockOperation blockOperationWithBlock:^{
             NSError *error = nil;
             NSHTTPURLResponse *response = nil;
             
@@ -123,11 +133,10 @@ static NSOperationQueue *_queue = nil;
             } else {
                 NSLog(@"cancelled");
             }
-        }
-    }];
-    
-    [[VIImageOperation getQueue] addOperation:self.operation];
-    
+        }];
+        
+        [[VIImageOperation getQueue] addOperation:self.operation];
+    }
 }
 
 - (UIImage *)imageWithData:(NSData *)data
