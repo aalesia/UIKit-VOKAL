@@ -95,11 +95,9 @@
                                                      owner:self
                                                    options:nil];
         cell = [nib lastObject];
-    } else {
-        [cell.imageView cancelOperation];
     }
     
-    [cell.imageView setImageUrl:[self urlForCurrentIndex]
+    [cell.imageView setImageUrl:[self urlForCurrentIndex:indexPath.row]
                    defaultImage:nil
                        animated:YES];
     
@@ -143,7 +141,14 @@
             [NSNumber numberWithInt:2253], nil];
 }
 
-- (NSString *)urlForCurrentIndex
+- (NSString *)urlForCurrentIndex:(NSInteger)index
+{
+    int imageIndex = index % [_images count];
+    
+    return [NSString stringWithFormat:@"http://media.threadless.com//imgs/products/%@/636x460design_01.jpg", [[_images objectAtIndex:imageIndex] stringValue]];
+}
+
+- (NSString *)urlForRandomIndex
 {
     int index = arc4random() % [_images count];
     

@@ -28,6 +28,8 @@
 
 - (void)setImageUrl:(NSString *)imageUrl defaultImage:(UIImage *)defaultImage animated:(BOOL)animated
 {
+    [self cancelOperation];
+    
     if (defaultImage != nil) {
         self.defaultImage = defaultImage;
         self.image = self.defaultImage;
@@ -72,10 +74,7 @@
 @end
 
 @interface VIImageOperation ()
-{
-    BOOL* cancelledPtr;
-}
-
+@property (strong, nonatomic) __block NSBlockOperation *operation;
 @end
 
 @implementation VIImageOperation
@@ -95,35 +94,40 @@ static NSOperationQueue *_queue = nil;
 
 - (void)fetchImageFromURL:(NSString *)uniquePath completion:(void (^)(UIImage *image, BOOL isFromCache))completion
 {
-    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:uniquePath]
-                                                  cachePolicy:NSURLCacheStorageAllowed
-                                              timeoutInterval:5.0];
     
-    if ([[NSURLCache sharedURLCache] cachedResponseForRequest:request]) {
-        [[VIImageOperation getQueue] addOperationWithBlock:^{
+    self.operation = [NSBlockOperation blockOperationWithBlock:^{
+        NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:uniquePath]
+                                                      cachePolicy:NSURLCacheStorageAllowed
+                                                  timeoutInterval:5.0];
+        
+        if ([[NSURLCache sharedURLCache] cachedResponseForRequest:request]) {
             NSCachedURLResponse *response = [[NSURLCache sharedURLCache] cachedResponseForRequest:request];
             NSData *data = response.data;
-            __block UIImage *image = [self imageWithData:data];
+            UIImage *image = [self imageWithData:data];
             
-            dispatch_async(dispatch_get_main_queue(), ^{
+            if (![self.operation isCancelled]) {
                 completion(image, YES);
-            });
-        }];
-    } else {
-        __block BOOL cancelled = NO;
-        
-        [NSURLConnection sendAsynchronousRequest:request
-                                           queue:[VIImageOperation getQueue]
-                               completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-                                    __block UIImage *image = [self imageWithData:data];
-                                   
-                                   if (!cancelled) {
-                                       dispatch_async(dispatch_get_main_queue(), ^{
-                                           completion(image, NO);
-                                       });
-                                   }
-                               }];
-    }
+            } else {
+                NSLog(@"cancelled");
+            }
+        } else {
+            NSError *error = nil;
+            NSHTTPURLResponse *response = nil;
+            
+            NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+            
+            UIImage *image = [self imageWithData:data];
+            
+            if (![self.operation isCancelled]) {
+                completion(image, NO);
+            } else {
+                NSLog(@"cancelled");
+            }
+        }
+    }];
+    
+    [[VIImageOperation getQueue] addOperation:self.operation];
+    
 }
 
 - (UIImage *)imageWithData:(NSData *)data
@@ -136,9 +140,7 @@ static NSOperationQueue *_queue = nil;
 
 - (void)cancel
 {
-    if (cancelledPtr) {
-        *cancelledPtr = YES;
-    }
+    [self.operation cancel];
 }
 
 @end
