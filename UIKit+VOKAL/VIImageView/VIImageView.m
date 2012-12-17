@@ -40,10 +40,7 @@
 
 - (void)layoutSubviews
 {
-    if (!CGRectEqualToRect(self.imageView.frame, self.frame)) {
-        self.imageView.frame = self.frame;
-    }
-    
+    self.imageView.frame = self.frame;
     self.imageView.autoresizingMask = self.autoresizingMask;
     self.imageView.contentMode = self.contentMode;
     self.imageView.clipsToBounds = self.clipsToBounds;
@@ -143,60 +140,35 @@ static NSMutableArray *_localCache = nil;
         return;
     }
     
-    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:uniquePath]
-                                                  cachePolicy:NSURLCacheStorageAllowed
-                                              timeoutInterval:5.0];
-    
     if (imageView.defaultImage != nil) {
         imageView.image = imageView.defaultImage;
     } else {
         imageView.image = nil;
     }
     
-    if ([[NSURLCache sharedURLCache] cachedResponseForRequest:request]) {
-        self.operation = [NSBlockOperation blockOperationWithBlock:^{
-            NSCachedURLResponse *response = [[NSURLCache sharedURLCache] cachedResponseForRequest:request];
-            NSData *data = response.data;
-            UIImage *image = [self imageWithData:data];
-            
-            if (![self.operation isCancelled]) {
-                [self addToCache:uniquePath image:image];
-                
-                completion(image, NO);
-            } else {
-                NSLog(@"cancelled");
-            }
-        }];
+    self.operation = [NSBlockOperation blockOperationWithBlock:^{
+        NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:uniquePath]
+                                                      cachePolicy:NSURLRequestReturnCacheDataElseLoad
+                                                  timeoutInterval:5.0];
         
-        [[VIImageOperation getQueue] addOperation:self.operation];
-    } else {
-        self.operation = [NSBlockOperation blockOperationWithBlock:^{
-            NSError *error = nil;
-            NSHTTPURLResponse *response = nil;
-            
-            NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-            
-            UIImage *image = [self imageWithData:data];
-            
-            if (![self.operation isCancelled]) {
-                [self addToCache:uniquePath image:image];
-                
+        NSURLResponse *response = nil;
+        NSError *error = nil;
+        
+        NSData *data = [NSURLConnection sendSynchronousRequest:request
+                                             returningResponse:&response
+                                                         error:&error];
+        
+        UIImage *image = [UIImage imageWithData:data scale:2.0];
+        [self addToCache:uniquePath image:image];
+        
+        if (![self.operation isCancelled]) {
+            dispatch_async(dispatch_get_main_queue(), ^{
                 completion(image, YES);
-            } else {
-                NSLog(@"cancelled");
-            }
-        }];
-        
-        [[VIImageOperation getQueue] addOperation:self.operation];
-    }
-}
-
-- (UIImage *)imageWithData:(NSData *)data
-{
-    UIImage* image = [[UIImage alloc] initWithData: data];
-    image = [UIImage imageWithCGImage:[image CGImage] scale:2.0 orientation:UIImageOrientationUp];
-
-    return image;
+            });
+        }
+    }];
+    
+    [[VIImageOperation getQueue] addOperation:self.operation];
 }
 
 - (void)cancel
@@ -220,6 +192,10 @@ static NSMutableArray *_localCache = nil;
 
 - (void)addToCache:(NSString *)imageUrl image:(UIImage *)image
 {
+    if (MAX_CACHE == 0) {
+        return;
+    }
+    
     NSDictionary *dictionary = @{@"image" : image, @"image_url" : imageUrl};
     
     [[VIImageOperation getLocalCache] addObject:dictionary];

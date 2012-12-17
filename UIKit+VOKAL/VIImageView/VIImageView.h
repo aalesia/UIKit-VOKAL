@@ -23,4 +23,6 @@
 - (void)fetchImageForImageView:(VIImageView *)imageView fromURL:(NSString *)uniquePath completion:(void (^)(UIImage *image, BOOL isFromCache))completion;
 - (void)cancel;
 
++ (NSMutableArray *)getLocalCache;
+
 @end
